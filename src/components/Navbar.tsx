@@ -67,6 +67,7 @@ const Navbar: React.FC = () => {
           <motion.li
             whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
             className="flex items-center border border-cyan-300 py-1 px-4 rounded text-cyan-300 text-sm hover:text-gray-600 tracking-wide hvr-sweep-to-right cursor-pointer"
+            onClick={() => window.open('https://drive.google.com/file/d/1-xmV0mfcYz8d2HX3-C1ndDXxQIDxL452/view?usp=sharing', '_blank')}
           >
             Resume
           </motion.li>
