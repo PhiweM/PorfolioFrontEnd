@@ -8,7 +8,7 @@ export default function Experience() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }} 
-      className='experience container mx-auto px-4 md:px-20 mb-20 md:pt-20 md:mb-24 max-w-[1000px]'
+      className='experience container mx-auto px-4 md:px-20 mb-12 md:pt-16 md:mb-14 max-w-[1000px]'
       id='experience'
     >
       <div className="flex space-x-4 md:mb-4">

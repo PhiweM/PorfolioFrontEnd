@@ -25,7 +25,7 @@ export default function About() {
   ];
 
   return (
-    <div className='about container mx-auto md:pt-20 px-4 md:px-14 mb-20 md:mb-16 max-w-[1000px] xl:w-[75%]' id='about'>
+    <div className='about container mx-auto md:pt-16 px-4 md:px-14 mb-12 md:mb-12 max-w-[1000px] xl:w-[75%]' id='about'>
       <div className="md:hidden hero-img-container w-full pb-16">
         <img src={heroImg} alt="hero-Image" className="hero-img w-full h-auto" />
       </div>

@@ -4,33 +4,45 @@ import { RiMenu3Line } from "react-icons/ri";
 import { IoCloseOutline } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 
+const RESUME_URL = 'https://drive.google.com/file/d/1-xmV0mfcYz8d2HX3-C1ndDXxQIDxL452/view?usp=sharing';
+const menuItems: string[] = ['About', 'Experience', 'Projects', 'Contact'];
+
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState<string>('');
 
-  // Detect scroll position
   useEffect(() => {
     const handleScroll = (): void => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = (): void => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  useEffect(() => {
+    const sectionIds = ['home', ...menuItems.map((i) => i.toLowerCase())];
+    const observers: IntersectionObserver[] = [];
 
-  const menuItems: string[] = ['About', 'Experience', 'Projects', 'Contact'];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: '-40% 0px -55% 0px' }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
+  const toggleMenu = (): void => setIsMenuOpen((prev) => !prev);
 
   return (
-    <nav className={`sticky top-0 p-3  xl:w-[100%] xl:mx-auto transition-all duration-300
-        ${isScrolled ? "bg-slate-800 shadow-lg border-b border-cyan-700/30" : "bg-gray-800/90 backdrop-blur-sm"} z-50`}>
+    <nav className={`sticky top-0 p-3 xl:w-[100%] xl:mx-auto transition-all duration-300
+        ${isScrolled ? 'bg-slate-800 shadow-lg border-b border-cyan-700/30' : 'bg-gray-800/90 backdrop-blur-sm'} z-50`}>
       <div className="flex items-center justify-between xl:w-[75%] xl:mx-auto">
         {/* Logo */}
         <a href="#home">
@@ -55,19 +67,26 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center space-x-4 mr-5">
-          {menuItems.map((item: string, index: number) => (
-            <motion.li
-              key={index}
-              whileHover={{ scale: 1.1, color: '#0ff', transition: { duration: 0.2 } }}
-              className="text-gray-200 text-sm border-l-2 border-l-cyan-300 pl-3 pr-1 tracking-wide hover:text-cyan-300"
-            >
-              <a href={`#${item.toLowerCase()}`}>{item}</a>
-            </motion.li>
-          ))}
+          {menuItems.map((item: string, index: number) => {
+            const isActive = activeSection === item.toLowerCase();
+            return (
+              <motion.li
+                key={index}
+                whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+                className={`text-sm border-l-2 pl-3 pr-1 tracking-wide transition-colors duration-200
+                  ${isActive
+                    ? 'border-l-cyan-300 text-cyan-300'
+                    : 'border-l-cyan-300/40 text-gray-400 hover:text-cyan-300 hover:border-l-cyan-300'
+                  }`}
+              >
+                <a href={`#${item.toLowerCase()}`}>{item}</a>
+              </motion.li>
+            );
+          })}
           <motion.li
             whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
             className="flex items-center border border-cyan-300 py-1 px-4 rounded text-cyan-300 text-sm hover:text-gray-600 tracking-wide hvr-sweep-to-right cursor-pointer"
-            onClick={() => window.open('https://drive.google.com/file/d/1-xmV0mfcYz8d2HX3-C1ndDXxQIDxL452/view?usp=sharing', '_blank')}
+            onClick={() => window.open(RESUME_URL, '_blank')}
           >
             Resume
           </motion.li>
@@ -112,28 +131,25 @@ const Navbar: React.FC = () => {
                 visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
               }}
             >
-              {menuItems.map((item: string, index: number) => (
-                <motion.li
-                  key={index}
-                  variants={{
-                    hidden: { opacity: 0, x: 50 },
-                    visible: { opacity: 1, x: 0 },
-                  }}
-                  className="border-r-2 border-r-cyan-300 pr-5 pl-20 hover:text-cyan-300 rounded-tl rounded-bl text-lg text-gray-200 tracking-wide transition-colors duration-300"
-                >
-                  <a href={`#${item.toLowerCase()}`} onClick={toggleMenu}>
-                    {item}
-                  </a>
-                </motion.li>
-              ))}
+              {menuItems.map((item: string, index: number) => {
+                const isActive = activeSection === item.toLowerCase();
+                return (
+                  <motion.li
+                    key={index}
+                    variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0 } }}
+                    className={`border-r-2 pr-5 pl-20 rounded-tl rounded-bl text-lg tracking-wide transition-colors duration-300
+                      ${isActive ? 'border-r-cyan-300 text-cyan-300' : 'border-r-cyan-300/40 text-gray-200 hover:text-cyan-300'}`}
+                  >
+                    <a href={`#${item.toLowerCase()}`} onClick={toggleMenu}>
+                      {item}
+                    </a>
+                  </motion.li>
+                );
+              })}
               <motion.button
-                whileHover={{
-                  scale: 1.1,
-                  backgroundColor: '#0ff',
-                  color: '#111',
-                  transition: { duration: 0.3 },
-                }}
+                whileHover={{ scale: 1.1, backgroundColor: '#0ff', color: '#111', transition: { duration: 0.3 } }}
                 className="flex items-center border border-cyan-300 p-2 rounded text-cyan-300 text-lg tracking-wide px-6"
+                onClick={() => window.open(RESUME_URL, '_blank')}
               >
                 Resume
               </motion.button>

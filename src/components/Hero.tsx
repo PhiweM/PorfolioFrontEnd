@@ -3,9 +3,12 @@ import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 import { BsTwitterX } from 'react-icons/bs';
 import { motion } from "framer-motion";
 
+const iconHover = { color: '#67e8f9' };
+const iconTransition = { duration: 0.15 };
+
 function Hero() {
   return (
-    <div className='hero container ubuntu-regular mx-auto flex flex-col md:flex-row text-white gap-1 xl:px-16 items-center justify-center md:justify-start h-[80vh] md:h-[95vh] xl:w-[75%] z-30 px-4 md:px-10 ' id='home'>
+    <div className='hero container ubuntu-regular mx-auto flex flex-col md:flex-row text-white gap-1 xl:px-16 items-center justify-center md:justify-start h-[75vh] md:h-[88vh] xl:w-[75%] z-30 px-4 md:px-10' id='home'>
 
       {/* Content Animation */}
       <motion.div
@@ -21,12 +24,12 @@ function Hero() {
         <p className="xl:pr-20 text-gray-400 text-base md:text-base mb-5"> <span className='italic'>Turning ideas into reality through code.</span> <br />
         I build modern, scalable web applications with a focus on performance and user experience. Let’s create something amazing together!</p>
 
-        <div className="social-icons flex gap-2 mt-5 items-center cursor-pointer">
-          <a href="https://www.linkedin.com/in/phiwe-mhlope/" target="_blank" className='social-media-icon text-gray-400 text-lg hover:text-cyan-300'><FaLinkedin /></a>
-          <a href="https://github.com/PhiweM" target="_blank" className='social-media-icon text-gray-400 text-lg hover:text-cyan-300'><FaGithub /></a>
-          <a href="https://github.com/PhiweM" target="_blank" className='social-media-icon text-gray-400 text-lg hover:text-cyan-300'> <FaInstagram /> </a>
-          <a href="https://github.com/PhiweM" target="_blank" className='social-media-icon text-gray-400 text-base hover:text-cyan-300'><BsTwitterX /></a>
-          <a href="https://www.mhlopephiwe.com/" target="_blank" className='text-gray-400 text-base p-0.5 mt-1 rounded hover:text-cyan-300 flex items-center pb-1.5'>Blog</a>
+        <div className="social-icons flex gap-2 mt-5 items-center">
+          <motion.a href="https://www.linkedin.com/in/phiwe-mhlope/" target="_blank" className="text-gray-400 text-lg" whileHover={iconHover} transition={iconTransition}><FaLinkedin /></motion.a>
+          <motion.a href="https://github.com/PhiweM" target="_blank" className="text-gray-400 text-lg" whileHover={iconHover} transition={iconTransition}><FaGithub /></motion.a>
+          <motion.a href="https://github.com/PhiweM" target="_blank" className="text-gray-400 text-lg" whileHover={iconHover} transition={iconTransition}><FaInstagram /></motion.a>
+          <motion.a href="https://github.com/PhiweM" target="_blank" className="text-gray-400 text-base" whileHover={iconHover} transition={iconTransition}><BsTwitterX /></motion.a>
+          <motion.a href="https://www.mhlopephiwe.com/" target="_blank" className="text-gray-400 text-base p-0.5 mt-1 rounded flex items-center pb-1.5" whileHover={iconHover} transition={iconTransition}>Blog</motion.a>
         </div>
       </motion.div>
 

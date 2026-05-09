@@ -1,4 +1,4 @@
-
+import { motion } from 'framer-motion';
 import { LuGithub } from "react-icons/lu";
 import { HiOutlineExternalLink } from "react-icons/hi";
 
@@ -11,66 +11,68 @@ interface ProjectCardProps {
   gitHubLink: string;
 }
 
-//ProjectCard 1: IMAGE RIGHT
 export default function ProjectCard({ image, title, desc, techStack, projectLink, gitHubLink }: ProjectCardProps) {
   return (
-    <div className="project-card md:min-w-[600px] md:max-w-[800px] xl:max-w-[1000px] h-80 xl:h-96 flex rounded mx-auto bg-gray-800 mb-12 z-0 md:ml-10 transition-all duration-300 shadow-gray-900 hover:shadow-gray-900 hover:translate-y-[-5px]">
-      
-     {/* Project Details */}
-      <div className="card-header w-3/4 md:w-1/2 mh-full pt-4 pb-2 px-5 md:pt-6 pb-none flex flex-col">
-        <h2 className="project-title text-gray-400 text-xl ubuntu-bold mb-2">{title}</h2>
-        <p className="desc text-gray-400 font-normal flex-grow mb-6">
-          {desc.length > 300 ? `${desc.slice(0, 300)}...` : desc}
-        </p>
+    <div
+      className="group relative flex flex-col h-full rounded-xl overflow-hidden bg-gray-700/50 backdrop-blur-sm border border-gray-600/50 hover:border-cyan-500/40 transition-all duration-300 hover:shadow-[0_8px_40px_rgba(6,182,212,0.12)] hover:-translate-y-1 cursor-pointer"
+      onClick={() => window.open(projectLink, '_blank')}
+    >
+      {/* Top accent */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500/60 to-transparent" />
 
-        <div className="tech-stack-wrap flex items-center mt-auto justify-between">
-          <div className="techStack flex flex-wrap">
-            {techStack.map((tech: string, index: number) => (
-              <p key={index} className='text-xs font-thin tracking-wider text-gray-400 mr-2'>
+      {/* Image */}
+      <div className="relative w-full h-48 flex-shrink-0 overflow-hidden">
+        <img
+          src={image}
+          alt={title}
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/40 pointer-events-none" />
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-6">
+        <h2 className="text-gray-100 text-lg ubuntu-bold mb-2 group-hover:text-cyan-300 transition-colors duration-300">
+          {title}
+        </h2>
+        <p className="text-gray-400 text-sm leading-relaxed mb-5 flex-grow">{desc}</p>
+
+        <div className="flex items-end justify-between gap-3 flex-wrap mt-auto">
+          <div className="flex flex-wrap gap-1.5">
+            {techStack.map((tech, i) => (
+              <span
+                key={i}
+                className="bg-cyan-900/40 text-cyan-300 border border-cyan-600/30 rounded-full px-2.5 py-0.5 text-xs font-mono tracking-wide"
+              >
                 {tech}
-              </p>
+              </span>
             ))}
           </div>
-
-          <div className="external-links flex gap-2">
-            <a 
-              href={gitHubLink} 
-              target="_blank" 
+          <div className="flex gap-2 flex-shrink-0">
+            <motion.a
+              href={gitHubLink}
+              target="_blank"
               rel="noopener noreferrer"
-              className='text-gray-400 text-xl hover:text-cyan-300'
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-600/50 border border-gray-500/50 text-gray-300 hover:border-cyan-500/50 hover:text-cyan-300 transition-all duration-200"
+              whileHover={{ y: -2 }}
             >
-              <LuGithub />
-            </a>
-            <a 
-              href={projectLink} 
-              target="_blank" 
+              <LuGithub className="text-base" />
+            </motion.a>
+            <motion.a
+              href={projectLink}
+              target="_blank"
               rel="noopener noreferrer"
-              className='text-gray-400 text-xl hover:text-cyan-300'
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-600/50 border border-gray-500/50 text-gray-300 hover:border-cyan-500/50 hover:text-cyan-300 transition-all duration-200"
+              whileHover={{ y: -2 }}
             >
-              <HiOutlineExternalLink />
-            </a>
+              <HiOutlineExternalLink className="text-base" />
+            </motion.a>
           </div>
         </div>
       </div>
-
-      {/* Project Image */}
-      <div 
-        className="card-body relative w-1/4 md:w-1/2 mx-auto py-4 md:py-8 pl-12 flex justify-center cursor-pointer" 
-        onClick={() => window.open(projectLink, '_blank')}
-      > 
-        <img 
-          src={image} 
-          alt="Project image" 
-          loading="lazy"
-          className="project-image rounded-2xl shadow-lg w-full h-auto rounded-tr-none rounded-br-none object-cover bg-cover bg-center" 
-        />
-        
-        <div className="absolute inset-0 bg-cyan-900/50 hover:bg-cyan-900/5 flex items-end justify-end gap-1 pb-2 pr-5 rounded-tr rounded-br"></div>
-
-
-      </div>
-
-     
     </div>
   );
 }

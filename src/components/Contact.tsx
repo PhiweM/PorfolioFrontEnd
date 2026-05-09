@@ -8,7 +8,7 @@ export default function Contact() {
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
     viewport={{ once: true }} 
-    className='contact container mx-auto px-6 md:px-14 max-w-[1000px] flex flex-col justify-center md:pt-20 mb-40' id='contact'>
+    className='contact container mx-auto px-6 md:px-14 max-w-[1000px] flex flex-col justify-center md:pt-16 mb-24' id='contact'>
         <div className="flex items-center space-x-4 mb-3">
 
           <div className="title-wrapper flex flex-col items-center">
@@ -27,7 +27,7 @@ export default function Contact() {
            👋🏾Say Hello.
         </button> */}
 
-        <a href="mailto:your.email@example.com" className="border border-cyan-300 py-1 px-4 rounded text-cyan-300 text-sm hover:text-gray-500 tracking-wide hvr-sweep-to-right w-32 mx-auto text-center flex justify-center">
+        <a href="mailto:wycliffwhite7@gmail.com" className="border border-cyan-300 py-1 px-4 rounded text-cyan-300 text-sm hover:text-gray-500 tracking-wide hvr-sweep-to-right w-32 mx-auto text-center flex justify-center">
           👋🏾 Say Hello
         </a>
 
