@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Overview — Phiwe Mhlope</title>
+  <style>
+    /* ── Palette (gray-800 base) ─────────────────────── */
+    :root {
+      --bg:        #1f2937;
+      --surface:   #263347;
+      --elevated:  #374151;
+      --border:    #374151;
+      --border-dim:#283548;
+      --text:      #f9fafb;
+      --text-2:    #d1d5db;
+      --text-3:    #9ca3af;
+      --accent:    #22d3ee;
+      --accent-2:  #67e8f9;
+      --accent-dim:rgba(34,211,238,0.10);
+      --green:     #4ade80;
+      --mono:      'Courier New', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-2);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ─────────────────────────────────────── */
+    .page { max-width: 860px; margin: 0 auto; padding: 56px 32px 80px; }
+
+    /* ── Header ─────────────────────────────────────── */
+    .doc-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+      margin-bottom: 52px;
+    }
+    .doc-header .chip {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .doc-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+    .doc-header .subtitle { color: var(--text-3); font-size: 0.9rem; }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 22px; }
+    .meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .meta-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .meta-value { font-size: 0.85rem; color: var(--text); font-weight: 500; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      border: 1px solid rgba(74,222,128,0.25);
+      background: rgba(74,222,128,0.07);
+      color: var(--green);
+    }
+    .pill-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    /* ── Sections ────────────────────────────────────── */
+    .section { margin-bottom: 52px; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .section p { color: var(--text-2); margin-bottom: 12px; max-width: 700px; }
+    .section p:last-child { margin-bottom: 0; }
+    code {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent-2);
+      background: rgba(34,211,238,0.08);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    /* ── Cards ──────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+    .card-title { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .card-desc  { font-size: 0.78rem; color: var(--text-3); line-height: 1.6; }
+    .card-grid  { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap: 12px; margin-top: 16px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 10px; margin-top: 14px; }
+
+    /* ── Badges ─────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(34,211,238,0.18);
+      color: var(--accent);
+      margin: 2px 3px 2px 0;
+    }
+
+    /* ── Stack rows ─────────────────────────────────── */
+    .stack-table {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      border-radius: 8px;
+      padding: 6px 18px;
+      margin-top: 12px;
+    }
+    .stack-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .stack-row:last-child { border-bottom: none; }
+    .stack-cat {
+      width: 110px;
+      flex-shrink: 0;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      padding-top: 4px;
+    }
+    .stack-badges { display: flex; flex-wrap: wrap; }
+
+    /* ── Tables ─────────────────────────────────────── */
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.82rem; }
+    thead th {
+      text-align: left;
+      padding: 8px 14px;
+      background: var(--surface);
+      color: var(--text-3);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    tbody td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border-dim);
+      color: var(--text-2);
+      vertical-align: top;
+    }
+    tbody td:first-child { font-family: var(--mono); color: var(--accent-2); font-size: 0.78rem; white-space: nowrap; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ── List ───────────────────────────────────────── */
+    .doc-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .doc-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: var(--text-2); }
+    .doc-list li::before {
+      content: '◆';
+      color: var(--accent);
+      font-size: 0.45rem;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    /* ── File tree ──────────────────────────────────── */
+    .file-tree {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      line-height: 1.7;
+    }
+    .tree-root  { color: var(--text-3); }
+    .tree-dir   { color: var(--accent-2); }
+    .tree-file  { color: var(--text-2); }
+    .tree-note  { color: var(--text-3); font-style: italic; }
+    .i1 { padding-left: 18px; }
+    .i2 { padding-left: 36px; }
+    .i3 { padding-left: 54px; }
+
+    /* ── Color swatches ─────────────────────────────── */
+    .swatch-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+    .swatch { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .swatch-box { width: 44px; height: 44px; border-radius: 6px; border: 1px solid var(--border); }
+    .swatch-hex { font-family: var(--mono); font-size: 0.58rem; color: var(--text-3); }
+    .swatch-name { font-size: 0.63rem; color: var(--text-2); font-weight: 500; }
+
+    /* ── Divider ─────────────────────────────────────── */
+    hr { border: none; border-top: 1px solid var(--border-dim); margin: 48px 0; }
+
+    /* ── Print ──────────────────────────────────────── */
+    @media print {
+      body { background: #fff; color: #111; }
+      :root {
+        --bg:#fff; --surface:#f1f5f9; --elevated:#e2e8f0;
+        --border:#cbd5e1; --border-dim:#e2e8f0;
+        --text:#0f172a; --text-2:#334155; --text-3:#64748b;
+        --accent:#0891b2; --accent-2:#0e7490;
+        --accent-dim:rgba(8,145,178,0.08);
+        --green:#16a34a;
+      }
+      .swatch-box { border: 2px solid #cbd5e1; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="doc-header">
+    <p class="chip">Technical Overview · Portfolio</p>
+    <h1>Phiwe Mhlope — Developer Portfolio</h1>
+    <p class="subtitle">Engineering documentation covering site architecture, technology, and deployment.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-label">Author</span>
+        <span class="meta-value">Phiwe Mhlope</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Status</span>
+        <span class="meta-value"><span class="pill"><span class="pill-dot"></span>Ready for deployment</span></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Framework</span>
+        <span class="meta-value">React 19 · Vite 7 · TypeScript 5.8</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Routing</span>
+        <span class="meta-value">React Router DOM v7 (BrowserRouter)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Resume</span>
+        <span class="meta-value">Served locally from <code>/Phiwe-MhlopeDev.pdf</code></span>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- 01 · Purpose -->
+  <section class="section">
+    <p class="section-label">01 · Purpose</p>
+    <h2>What this site is</h2>
+    <p>
+      A professional engineering portfolio for Phiwe Mhlope — Frontend &amp; Full-Stack Engineer.
+      Designed to communicate engineering maturity, production experience, and technical depth
+      to recruiters and hiring managers. The aesthetic is inspired by modern developer documentation
+      platforms (Vercel, Linear, Stripe Docs) rather than a generic personal portfolio.
+    </p>
+    <p>
+      Each project links to a fully documented case study covering architecture decisions,
+      key features, engineering challenges, and planned improvements — presenting work the way
+      an engineer would explain it to a technical interviewer.
+    </p>
+  </section>
+
+
+  <!-- 02 · Routes -->
+  <section class="section">
+    <p class="section-label">02 · Site Structure</p>
+    <h2>Routes &amp; pages</h2>
+    <p>The site uses the History API via React Router. Every route must resolve to <code>index.html</code> — handled by the deployment configs below.</p>
+    <table>
+      <thead><tr><th>Route</th><th>Page</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>/</td>
+          <td>Home</td>
+          <td>Single-page with scrollable sections: Hero → About → Experience → Projects → Contact.</td>
+        </tr>
+        <tr>
+          <td>/projects/afriverse</td>
+          <td>Afriverse case study</td>
+          <td>Documentation-layout detail page with sticky sidebar TOC and anchored sections.</td>
+        </tr>
+        <tr>
+          <td>/projects/product-store</td>
+          <td>Product Store case study</td>
+          <td>Documentation-layout detail page — same structure as above.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- 03 · Tech Stack -->
+  <section class="section">
+    <p class="section-label">03 · Technology</p>
+    <h2>Full tech stack</h2>
+    <div class="stack-table">
+      <div class="stack-row">
+        <span class="stack-cat">Core</span>
+        <div class="stack-badges">
+          <span class="badge">React 19</span>
+          <span class="badge">TypeScript 5.8</span>
+          <span class="badge">Vite 7</span>
+        </div>
+      </div>
+      <div class="stack-row">
+        <span class="stack-cat">Routing</span>
+        <div class="stack-badges">
+          <span class="badge">React Router DOM v7</span>
+        </div>
+      </div>
+      <div class="stack-row">
+        <span class="stack-cat">Styling</span>
+        <div class="stack-badges">
+          <span class="badge">Tailwind CSS v4</span>
+          <span class="badge">@tailwindcss/vite</span>
+          <span class="badge">CSS custom properties</span>
+          <span class="badge">Inter</span>
+          <span class="badge">JetBrains Mono</span>
+        </div>
+      </div>
+      <div class="stack-row">
+        <span class="stack-cat">Animation</span>
+        <div class="stack-badges">
+          <span class="badge">Framer Motion 12</span>
+          <span class="badge">AnimatePresence</span>
+        </div>
+      </div>
+      <div class="stack-row">
+        <span class="stack-cat">UI</span>
+        <div class="stack-badges">
+          <span class="badge">react-icons 5</span>
+          <span class="badge">@headlessui/react</span>
+        </div>
+      </div>
+      <div class="stack-row">
+        <span class="stack-cat">Browser APIs</span>
+        <div class="stack-badges">
+          <span class="badge">Intersection Observer</span>
+          <span class="badge">History API</span>
+          <span class="badge">Keyboard events</span>
+        </div>
+      </div>
+      <div class="stack-row">
+        <span class="stack-cat">Tooling</span>
+        <div class="stack-badges">
+          <span class="badge">ESLint 9</span>
+          <span class="badge">typescript-eslint</span>
+          <span class="badge">PostCSS</span>
+          <span class="badge">Autoprefixer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 04 · Component structure -->
+  <section class="section">
+    <p class="section-label">04 · Architecture</p>
+    <h2>Component structure</h2>
+    <div class="file-tree">
+      <p class="tree-root">src/</p>
+      <p class="i1"><span class="tree-file">main.tsx</span> <span class="tree-note">— entry, BrowserRouter wrapper</span></p>
+      <p class="i1"><span class="tree-file">App.tsx</span> <span class="tree-note">— routes, command palette state, scroll-to-top, footer</span></p>
+      <p class="i1"><span class="tree-file">index.css</span> <span class="tree-note">— design tokens (CSS variables), shared component classes</span></p>
+      <p class="i1"><span class="tree-dir">components/</span></p>
+      <p class="i2"><span class="tree-file">Navbar.tsx</span> <span class="tree-note">— sticky nav, Intersection Observer active section, mobile drawer</span></p>
+      <p class="i2"><span class="tree-file">Hero.tsx</span> <span class="tree-note">— product landing: availability badge, name, bio, stats, CTAs, socials</span></p>
+      <p class="i2"><span class="tree-file">About.tsx</span> <span class="tree-note">— bio, quick-facts card, categorised tech stack by layer</span></p>
+      <p class="i2"><span class="tree-file">Contact.tsx</span> <span class="tree-note">— email CTA + social links card</span></p>
+      <p class="i2"><span class="tree-file">CommandPalette.tsx</span> <span class="tree-note">— Ctrl/Cmd+K, keyboard nav, sections/projects/links</span></p>
+      <p class="i2"><span class="tree-file">projectsData.ts</span> <span class="tree-note">— typed Project interface: slug, status, metrics, full case study content</span></p>
+      <p class="i2"><span class="tree-dir">Experience/</span></p>
+      <p class="i3"><span class="tree-file">Experience.tsx</span> <span class="tree-note">— vertical timeline, role cards with highlights + tech badges</span></p>
+      <p class="i2"><span class="tree-dir">projects/</span></p>
+      <p class="i3"><span class="tree-file">Projects.tsx</span> <span class="tree-note">— project grid section with staggered animation</span></p>
+      <p class="i3"><span class="tree-file">ProjectCard.tsx</span> <span class="tree-note">— card: image, status, year, metrics preview, tech, case study link</span></p>
+      <p class="i3"><span class="tree-file">ProjectDetail.tsx</span> <span class="tree-note">— doc layout: banner, sticky sidebar TOC, 7 anchored content sections</span></p>
+    </div>
+    <br/>
+    <div class="file-tree">
+      <p class="tree-root">public/</p>
+      <p class="i1"><span class="tree-file">Phiwe-MhlopeDev.pdf</span> <span class="tree-note">— resume, served at /Phiwe-MhlopeDev.pdf</span></p>
+      <p class="i1"><span class="tree-file">favicon.ico</span></p>
+      <p class="i1"><span class="tree-file">_redirects</span> <span class="tree-note">— Netlify SPA catch-all rule</span></p>
+      <p class="tree-root" style="margin-top:8px;">vercel.json</p>
+      <span class="tree-note" style="padding-left:0;"> — Vercel SPA rewrite rule</span>
+    </div>
+  </section>
+
+
+  <!-- 05 · Key features -->
+  <section class="section">
+    <p class="section-label">05 · Features</p>
+    <h2>Key UX &amp; engineering features</h2>
+    <ul class="doc-list">
+      <li><strong>Command Palette (Ctrl+K / Cmd+K)</strong> — keyboard-driven search across sections, both project case studies, resume, GitHub, and LinkedIn. Arrow-key navigation, Enter to select, Esc to close.</li>
+      <li><strong>Project case study pages</strong> — each project opens at <code>/projects/:slug</code> with a project banner, sticky sidebar TOC, and 7 anchored sections: Overview, Problem, Architecture, Key Features, Challenges, Technical Highlights, Future Improvements.</li>
+      <li><strong>Sidebar TOC with active tracking</strong> — Intersection Observer on the detail page highlights the current section in the sidebar as the user scrolls.</li>
+      <li><strong>Active section detection in navbar</strong> — Intersection Observer with a tuned <code>rootMargin</code> highlights the correct nav item during scroll without false triggers.</li>
+      <li><strong>Animated page transitions</strong> — Framer Motion <code>AnimatePresence</code> wraps the route outlet for fade transitions between home and project pages.</li>
+      <li><strong>Responsive mobile drawer</strong> — spring-animated side drawer on mobile, with backdrop blur overlay and staggered menu item entrance.</li>
+      <li><strong>Deployment-ready SPA routing</strong> — <code>public/_redirects</code> for Netlify and <code>vercel.json</code> rewrites for Vercel both configured.</li>
+      <li><strong>Local resume</strong> — PDF served from <code>public/</code>, no external dependency or link rot risk.</li>
+      <li><strong>SEO meta tags</strong> — Open Graph and Twitter card tags in <code>index.html</code> for social sharing previews.</li>
+      <li><strong>Lazy image loading</strong> — project card and banner images use native <code>loading="lazy"</code>.</li>
+      <li><strong>Scroll-to-top</strong> — floating button appears at 400px scroll depth.</li>
+    </ul>
+  </section>
+
+
+  <!-- 06 · Projects -->
+  <section class="section">
+    <p class="section-label">06 · Projects</p>
+    <h2>Showcased projects</h2>
+
+    <div style="margin-bottom: 20px;">
+      <div class="card" style="margin-bottom: 10px;">
+        <p class="card-title">Afriverse — Full-Stack Digital Archive</p>
+        <p class="card-desc" style="margin-bottom: 10px;">
+          A community-driven archive that aggregates African literary data from across the web into one structured, searchable platform. Author bios from Wikipedia, book covers from OpenLibrary and Google Books, interview thumbnails from YouTube — all pulled live. Features a full community contribution and admin moderation system, author profile claiming and verification, multi-dimensional discovery across six filter dimensions, literary awards tracking, and branded transactional email via Resend SMTP.
+        </p>
+        <p class="card-desc" style="margin-bottom: 8px;"><strong style="color:var(--text-3);">Architecture:</strong> Vite + React SPA with a custom in-memory pub/sub data cache (key-based invalidation). Supabase backend: PostgreSQL with row-level security, Supabase Auth, PostgREST API. A service layer normalises snake_case DB rows to camelCase app types. Four external APIs integrated client-side. Deployed on Vercel with CI/CD from GitHub.</p>
+        <div>
+          <span class="badge">React</span><span class="badge">TypeScript</span><span class="badge">Vite</span>
+          <span class="badge">Supabase</span><span class="badge">PostgreSQL</span><span class="badge">React Router v7</span>
+          <span class="badge">Tailwind CSS</span><span class="badge">Wikipedia API</span><span class="badge">OpenLibrary API</span>
+          <span class="badge">Google Books API</span><span class="badge">Resend SMTP</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="card-title">Product Store — MERN Inventory App</p>
+        <p class="card-desc" style="margin-bottom: 10px;">
+          Full-stack MERN inventory management application. Express/Node REST API (4 endpoints, consistent HTTP status codes, error middleware) connected to MongoDB Atlas via Mongoose schema validation. React + TypeScript frontend. Express serves both the API and the Vite static build in production — single Render deployment, no CORS complexity.
+        </p>
+        <div>
+          <span class="badge">React</span><span class="badge">TypeScript</span><span class="badge">Express.js</span>
+          <span class="badge">MongoDB Atlas</span><span class="badge">Node.js</span><span class="badge">Mongoose</span>
+          <span class="badge">Tailwind CSS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 07 · Experience -->
+  <section class="section">
+    <p class="section-label">07 · Work Experience</p>
+    <h2>Roles</h2>
+    <table>
+      <thead><tr><th>Company</th><th>Role</th><th>Period</th><th>Focus</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>VISTECH</td>
+          <td>Software Developer</td>
+          <td>Jun 2023 – Present</td>
+          <td>Sole frontend engineer on client engagements. SPFx web parts, TypeScript, React, Microsoft 365, REST API integrations, Figma UI/UX, Node.js, Git, Jest.</td>
+        </tr>
+        <tr>
+          <td>GO-Digital</td>
+          <td>Software Developer</td>
+          <td>Oct 2019 – Jan 2021</td>
+          <td>End-to-end WordPress delivery. Custom JavaScript modules, WooCommerce eCommerce, Core Web Vitals optimisation, client communication.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- 08 · Design system -->
+  <section class="section">
+    <p class="section-label">08 · Design System</p>
+    <h2>Color palette &amp; tokens</h2>
+    <p>All tokens are CSS custom properties on <code>:root</code> in <code>index.css</code>. Components consume them via <code>var(--token)</code> — no hardcoded colours in component files.</p>
+
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-box" style="background:#1f2937"></div>
+        <span class="swatch-hex">#1f2937</span>
+        <span class="swatch-name">bg</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#182030"></div>
+        <span class="swatch-hex">#182030</span>
+        <span class="swatch-name">bg-subtle</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#263347"></div>
+        <span class="swatch-hex">#263347</span>
+        <span class="swatch-name">bg-surface</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#374151"></div>
+        <span class="swatch-hex">#374151</span>
+        <span class="swatch-name">bg-elevated</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#f9fafb"></div>
+        <span class="swatch-hex">#f9fafb</span>
+        <span class="swatch-name">text</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#d1d5db"></div>
+        <span class="swatch-hex">#d1d5db</span>
+        <span class="swatch-name">text-2</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#9ca3af"></div>
+        <span class="swatch-hex">#9ca3af</span>
+        <span class="swatch-name">text-3</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#22d3ee"></div>
+        <span class="swatch-hex">#22d3ee</span>
+        <span class="swatch-name">accent</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#67e8f9"></div>
+        <span class="swatch-hex">#67e8f9</span>
+        <span class="swatch-name">accent-2</span>
+      </div>
+    </div>
+
+    <p style="margin-top: 20px;">
+      Typography: <strong style="color:var(--text)">Inter</strong> for all UI text (matches Linear, Vercel, Stripe).
+      <strong style="color:var(--text)">JetBrains Mono</strong> for labels, badges, metadata, and code-style elements.
+    </p>
+  </section>
+
+
+  <!-- 09 · Build & Deploy -->
+  <section class="section">
+    <p class="section-label">09 · Build &amp; Deployment</p>
+    <h2>Scripts</h2>
+    <table>
+      <thead><tr><th>Command</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>npm run dev</td><td>Start Vite dev server with HMR.</td></tr>
+        <tr><td>npm run build</td><td>TypeScript check (<code>tsc -b</code>) then Vite production build to <code>dist/</code>.</td></tr>
+        <tr><td>npm run preview</td><td>Serve the <code>dist/</code> build locally before deploying.</td></tr>
+        <tr><td>npm run lint</td><td>ESLint with TypeScript, React Hooks, and React Refresh plugins.</td></tr>
+      </tbody>
+    </table>
+
+    <h2 style="margin-top: 28px;">Deployment targets</h2>
+    <p>The site uses BrowserRouter (History API). The host must redirect all routes to <code>index.html</code>. Both configs are committed and ready.</p>
+    <table>
+      <thead><tr><th>Host</th><th>Config file</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Netlify</td>
+          <td><code>public/_redirects</code></td>
+          <td><code>/* /index.html 200</code></td>
+        </tr>
+        <tr>
+          <td>Vercel</td>
+          <td><code>vercel.json</code></td>
+          <td><code>rewrites: [{ source: "/(.*)", destination: "/index.html" }]</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top: 14px;">
+      Previous deployment: <code>phiwemhlopedev.netlify.app</code> (Netlify). To redeploy to Netlify, connect the GitHub repo and set the build command to <code>npm run build</code> and publish directory to <code>dist</code>. No environment variables required.
+    </p>
+  </section>
+
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid var(--border-dim);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+    <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text-3);">Phiwe Mhlope · Portfolio Technical Overview · 2025</span>
+    <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text-3);">github.com/PhiweM</span>
+  </footer>
+
+</div>
+</body>
+</html>

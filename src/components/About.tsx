@@ -1,82 +1,172 @@
-import heroImg from './../assets/heroimg2.png';
 import { motion } from 'framer-motion';
+import { LuMapPin, LuBriefcase, LuCode, LuZap, LuBookOpen } from 'react-icons/lu';
+
+const techCategories = [
+  {
+    label: 'Frontend',
+    items: ['React', 'Next.js', 'TypeScript', 'JavaScript (ES6+)', 'Tailwind CSS', 'CSS3'],
+  },
+  {
+    label: 'Backend',
+    items: ['Node.js', 'Express.js', 'Python', 'REST APIs'],
+  },
+  {
+    label: 'Data',
+    items: ['MongoDB', 'PostgreSQL', 'Supabase'],
+  },
+  {
+    label: 'Enterprise',
+    items: ['SharePoint (SPFx)', 'Microsoft Azure', 'Microsoft 365'],
+  },
+  {
+    label: 'Tooling',
+    items: ['Git', 'GitHub', 'Figma', 'Postman', 'Vite'],
+  },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.08 },
+  }),
+};
 
 export default function About() {
-  const techStack = "https://img.icons8.com/color/48/000000/";
-  const techStackIcons = [
-    { name: 'CSS3', url: `${techStack}css3.png` },
-    { name: 'Tailwind CSS', url: `${techStack}tailwindcss.png` },
-    { name: 'JavaScript (ES6+)', url: `${techStack}javascript--v1.png` },
-    { name: 'TypeScript', url: `${techStack}typescript--v1.png` },
-    { name: 'Python', url: `${techStack}python.png` },
-    { name: 'MongoDB', url: `${techStack}mongodb.png` },
-    { name: 'Express.js', url: `${techStack}express-js.png` },
-    { name: 'React', url: `${techStack}react-native.png` },
-    { name: 'Nextjs', url: `${techStack}nextjs.png` },
-    { name: 'Node.js', url: `${techStack}nodejs.png` },
-    { name: 'Git', url: `${techStack}git.png` },
-    { name: 'GitHub', url: `https://img.icons8.com/fluency/48/github.png` },
-    { name: 'Npm', url: `${techStack}npm.png` },
-    { name: 'Wordpress', url: `${techStack}wordpress.png` },
-    { name: 'Figma', url: `${techStack}figma.png` },
-    { name: 'Postman', url: `https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-postman-is-the-only-complete-api-development-environment-logo-color-tal-revivo.png`},
-    { name: 'Microsoft Sharepoint + SPFx', url: `${techStack}microsoft-sharepoint-2019.png` },
-    { name: 'Microsoft Azure', url: `https://img.icons8.com/fluency/48/azure-1.png` },
-  ];
-
   return (
-    <div className='about container mx-auto md:pt-16 px-4 md:px-14 mb-12 md:mb-12 max-w-[1000px] xl:w-[75%]' id='about'>
-      <div className="md:hidden hero-img-container w-full pb-16">
-        <img src={heroImg} alt="hero-Image" className="hero-img w-full h-auto" />
-      </div>
+    <section id="about" className="py-24 px-6">
+      <div className="mx-auto max-w-4xl">
+        {/* Section label */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-10"
+        >
+          <p className="section-label mb-3">About</p>
+          <h2
+            className="text-3xl md:text-4xl font-bold tracking-tight"
+            style={{ color: 'var(--text)', letterSpacing: '-0.02em' }}
+          >
+            Engineering background
+          </h2>
+        </motion.div>
 
-      <div className="flex space-x-4">
-        <div className="title-wrapper flex flex-col items-center">
-          <p className="title-sub text-xs font-thin tracking-wider text-cyan-300 mr-2 mb-2">#About</p>
-          <h1 className="about-title ubuntu-bold text-xl md:text-3xl font-extrabold text-gray-400 relative md:mr-2 pl-1">
-            About Me
-          </h1>
-        </div>
-        <span className='w-[52%] border-b border-cyan-700/30 mb-3'></span>
-      </div>
+        {/* Bio */}
+        <div className="grid md:grid-cols-5 gap-12 mb-16">
+          <motion.div
+            className="md:col-span-3 space-y-4"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p style={{ color: 'var(--text-2)', lineHeight: '1.8' }}>
+              I'm{' '}
+              <span style={{ color: 'var(--text)', fontWeight: 500 }}>Phiwe Mhlope</span>, a
+              Full-Stack Developer based in South Africa. I specialize in building scalable,
+              performant web applications across the full stack — from React frontends to Node.js
+              APIs and cloud-connected data layers.
+            </p>
+            <p style={{ color: 'var(--text-2)', lineHeight: '1.8' }}>
+              Currently at{' '}
+              <span style={{ color: 'var(--text)', fontWeight: 500 }}>VISTECH</span>, I build
+              custom enterprise tools using SharePoint Framework (SPFx), TypeScript, and modern
+              web technologies for external clients operating within the Microsoft 365 ecosystem.
+              My day-to-day involves everything from database design and API integration to UI/UX
+              prototyping in Figma.
+            </p>
+            <p style={{ color: 'var(--text-2)', lineHeight: '1.8' }}>
+              I care about{' '}
+              <span style={{ color: 'var(--text)', fontWeight: 500 }}>
+                maintainability, performance, and accessibility
+              </span>{' '}
+              — and I bring that discipline to every layer of a project, not just the parts
+              users see.
+            </p>
+          </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }} 
-        className="details py-4 px-10 md:pr-20 h-auto max-w-[800px] flex flex-col "
-      >
-        <p className='text-gray-400 mb-3 font-normal'>
-        Hello! My name is <strong>Phiwe,</strong> and I build things for the internet.
-        I’m a <strong>Full-Stack Developer</strong> passionate about crafting seamless digital experiences. With a strong foundation in both frontend and backend development, I specialize in building scalable, high-performance applications.
-        </p>
-        <p className='text-gray-400 mb-3 font-normal'>
-        I thrive on learning, problem-solving, and pushing the boundaries of technology, constantly improving my craft while sharing knowledge with others.
-        </p>
-
-        <p className='text-gray-400 mb-3 font-normal'>
-          Currently, I work at <strong>VISTECH</strong>, where I build custom database management and record-keeping systemsfor external clients using <strong>SharePoint Framework (SPFx), TypeScript, and modern web technologies</strong>. I also <strong>design UI/UX mockups in Figma</strong> to enhance application workflows.
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 50}}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        viewport={{ once: true }} 
-        className="tech-stack max-w-[700px] mx-auto md:p-3 text-center xl:ml-20"
-      >
-        <h2 className="tech-stack-title text-gray-400 text-lg ubuntu-bold my-3 ml-4 md:ml-0  xl:ml-12 text-center">Tech Stack</h2>
-        <div className="tech-icons flex gap-4 flex-wrap justify-center">
-          {techStackIcons.map((icon, index) => (
-            <div key={index} className="tech-icon mb-3 flex flex-col justify-center items-center mr-3">
-              <img src={icon.url} alt={icon.name} className='img-icon' />
-              <p className='icon-name text-xs font-normal tracking-wider text-gray-400'>{icon.name}</p>
+          {/* Quick facts */}
+          <motion.div
+            className="md:col-span-2"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <div
+              className="rounded-lg p-5 space-y-4"
+              style={{ background: 'var(--bg-subtle)', border: '1px solid var(--border)' }}
+            >
+              <p className="section-label" style={{ fontSize: '0.65rem' }}>
+                Quick facts
+              </p>
+              {[
+                { label: 'Location',    value: 'Conneticut',                      icon: <LuMapPin size={11} /> },
+                { label: 'Former role', value: 'Software Developer @ VISTECH',    icon: <LuBriefcase size={11} /> },
+                { label: 'Focus',       value: 'Full-Stack Engineering',           icon: <LuCode size={11} /> },
+                { label: 'Status',      value: 'Open to opportunities',            icon: <LuZap size={11} /> },
+                { label: 'Education',   value: 'BS in Computer Science',           icon: <LuBookOpen size={11} /> },
+              ].map(({ label, value, icon }) => (
+                <div key={label}>
+                  <p
+                    className="flex items-center gap-1.5"
+                    style={{ color: 'var(--text-3)', fontSize: '0.72rem', fontFamily: 'var(--mono)' }}
+                  >
+                    <span style={{ color: 'var(--accent)', opacity: 0.8 }}>{icon}</span>
+                    {label}
+                  </p>
+                  <p style={{ color: 'var(--text)', fontSize: '0.875rem', fontWeight: 500, paddingLeft: '1.4rem' }}>
+                    {value}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
+          </motion.div>
         </div>
-      </motion.div>
-    </div>
+
+        {/* Divider */}
+        <hr className="hr mb-12" />
+
+        {/* Tech stack */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="section-label mb-6">Tech stack</p>
+          <div className="space-y-5">
+            {techCategories.map((cat, ci) => (
+              <motion.div
+                key={cat.label}
+                className="flex flex-col sm:flex-row sm:items-start gap-3"
+                custom={ci}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <span
+                  className="sm:w-28 flex-shrink-0 text-xs pt-0.5"
+                  style={{ color: 'var(--text-3)', fontFamily: 'var(--mono)' }}
+                >
+                  {cat.label}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {cat.items.map((tech) => (
+                    <span key={tech} className="tech-badge">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }

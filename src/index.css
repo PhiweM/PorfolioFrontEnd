@@ -1,119 +1,269 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @import "tailwindcss";
 
- 
-.ubuntu-light {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 300;
-  font-style: normal;
+/* ─── Design Tokens ─────────────────────────────── */
+:root {
+  --bg:            #1f2937;   /* Tailwind gray-800 */
+  --bg-subtle:     #182030;   /* slightly darker for depth sections */
+  --bg-surface:    #263347;   /* card backgrounds — slightly lighter/bluer */
+  --bg-elevated:   #374151;   /* gray-700 — hover states, raised elements */
+  --border:        #374151;   /* gray-700 */
+  --border-subtle: #283548;
+  --text:          #f9fafb;   /* gray-50 */
+  --text-2:        #d1d5db;   /* gray-300 */
+  --text-3:        #9ca3af;   /* gray-400 */
+  --accent:        #22d3ee;   /* cyan-400 */
+  --accent-dim:    rgba(34, 211, 238, 0.12);
+  --accent-border: rgba(34, 211, 238, 0.25);
+  --font:          'Inter', system-ui, -apple-system, sans-serif;
+  --mono:          'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 }
 
-.ubuntu-regular {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+/* ─── Base ──────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-.ubuntu-medium {
-  font-family: "Ubuntu", sans-serif;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* ─── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+/* ─── Typography utilities ──────────────────────── */
+.font-mono { font-family: var(--mono); }
+
+/* ─── Dot grid ──────────────────────────────────── */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ─── Tech badge ────────────────────────────────── */
+.tech-badge {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 0.18rem 0.55rem;
+  border-radius: 4px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* ─── Section label (e.g. "ABOUT", "PROJECTS") ─── */
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+/* ─── Horizontal rule ───────────────────────────── */
+.hr {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Card ──────────────────────────────────────── */
+.eng-card {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.eng-card:hover {
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 1px var(--accent-border), 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* ─── Button styles ─────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  background: var(--accent);
+  color: #000;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: background 0.15s, box-shadow 0.15s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  background: #67e8f9;
+  box-shadow: 0 0 16px rgba(34,211,238,0.3);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  background: transparent;
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.85rem;
   font-weight: 500;
-  font-style: normal;
+  transition: color 0.15s, border-color 0.15s;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-ghost:hover {
+  color: var(--text);
+  border-color: var(--text-3);
 }
 
-.ubuntu-bold {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 900;
-  font-style: normal;
+/* ─── Status badge ──────────────────────────────── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  letter-spacing: 0.04em;
+}
+.status-badge.production {
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.2);
+  background: rgba(74, 222, 128, 0.06);
+}
+.status-badge .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.status-badge.production .dot {
+  animation: pulse-green 2s infinite;
+}
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
-.ubuntu-light-italic {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 300;
-  font-style: italic;
+/* ─── Sidebar TOC ───────────────────────────────── */
+.toc-link {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-3);
+  padding: 0.3rem 0.75rem;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  text-decoration: none;
+  line-height: 1.4;
+}
+.toc-link:hover { color: var(--text-2); }
+.toc-link.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
 }
 
-.ubuntu-regular-italic {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 400;
-  font-style: italic;
+/* ─── Command palette overlay ───────────────────── */
+.palette-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
 }
 
-.ubuntu-medium-italic {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 500;
-  font-style: italic;
+.palette-box {
+  width: 100%;
+  max-width: 560px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px var(--border);
 }
 
-.ubuntu-bold-italic {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 700;
-  font-style: italic;
+.palette-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  color: var(--text);
+  padding: 1rem 1.2rem;
 }
 
+.palette-input::placeholder { color: var(--text-3); }
 
-
-/* Sweep To Right */
-.hvr-sweep-to-right {
-    display: inline-block;
-    vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    position: relative;
-    -webkit-transition-property: color;
-    transition-property: color;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-  }
-
-  .hvr-sweep-to-right:before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #59eafd;
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-    -webkit-transform-origin: 0 50%;
-    transform-origin: 0 50%;
-    -webkit-transition-property: transform;
-    transition-property: transform;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-  }
-  .hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
-    color: white;
-  }
-  .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-  }
-
-
-  .icon-name {
-    margin-left: 0;
-    max-width: 1.2rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--text-2);
+  transition: background 0.1s, color 0.1s;
+  border-radius: 0;
+}
+.palette-item:hover, .palette-item.selected {
+  background: var(--bg-elevated);
+  color: var(--text);
+}
+.palette-item-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-3);
+  flex-shrink: 0;
+}
+.palette-item-type {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-3);
+  padding: 0.1rem 0.4rem;
+  background: var(--bg-elevated);
+  border-radius: 3px;
 }
 
-  /** 
-*Projects 
-*/
-  .project-card {
-    /* border: 1px solid red; */
-    box-shadow: #00000033 0px 12px 28px 0px, #0000001a 0px 2px 4px 0px, #ffffff0d 0px 0px 0px 1px inset;
-  }
-
-  .desc {
-    overflow-y: hidden;
-    text-overflow: ellipsis !important;
+/* ─── Backward compat / kept for any remaining usage */
+.ubuntu-light        { font-weight: 300; }
+.ubuntu-regular      { font-weight: 400; }
+.ubuntu-medium       { font-weight: 500; }
+.ubuntu-bold         { font-weight: 700; }
+.ubuntu-light-italic { font-weight: 300; font-style: italic; }
+.ubuntu-regular-italic { font-weight: 400; font-style: italic; }
+.ubuntu-medium-italic  { font-weight: 500; font-style: italic; }
+.ubuntu-bold-italic    { font-weight: 700; font-style: italic; }
+.icon-name { max-width: 4rem; text-align: center; display: flex; justify-content: center; }
+.project-card {
+  box-shadow: rgba(0,0,0,0.5) 0 8px 32px, rgba(255,255,255,0.04) 0 0 0 1px inset;
 }

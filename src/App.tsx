@@ -1,69 +1,93 @@
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience/Experience';
-import Contact from './components/Contact';
 import Projects from './components/projects/Projects';
-import { useState, useEffect } from 'react';
-import { IoIosArrowRoundUp } from "react-icons/io";
+import Contact from './components/Contact';
+import ProjectDetail from './components/projects/ProjectDetail';
+import CommandPalette from './components/CommandPalette';
+import { IoIosArrowRoundUp } from 'react-icons/io';
 
-function App() {
-    const [showButton, setShowButton] = useState<boolean>(false);
-
-  // Show the button when scrolled down
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowButton(true);
-      } else {
-        setShowButton(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Scroll smoothly to the top
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
+function HomePage() {
   return (
-    <div className="appjsx bg-gray-800 relative">
-      <Navbar />
+    <>
       <Hero />
       <About />
       <Experience />
       <Projects />
       <Contact />
+    </>
+  );
+}
 
-      {/* Return to Top Button */}
-      {showButton && (
+function App() {
+  const [showTop, setShowTop] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setPaletteOpen((v) => !v);
+      }
+      if (e.key === 'Escape') setPaletteOpen(false);
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
+  const isDetailPage = location.pathname.startsWith('/projects/');
+
+  return (
+    <div style={{ backgroundColor: 'var(--bg)', minHeight: '100vh' }}>
+      <Navbar onPaletteOpen={() => setPaletteOpen(true)} />
+
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
+        </Routes>
+      </AnimatePresence>
+
+      {/* Footer */}
+      {!isDetailPage && (
+        <footer className="py-10 text-center border-t" style={{ borderColor: 'var(--border)' }}>
+          <p style={{ color: 'var(--text-3)', fontSize: '0.8rem' }}>
+            © {new Date().getFullYear()} Phiwe Mhlope — Designed &amp; built with intent.
+          </p>
+        </footer>
+      )}
+
+      {/* Back to top */}
+      {showTop && (
         <button
-          onClick={scrollToTop}
-          className="fixed bottom-10 right-10 p-3 rounded-full bg-cyan-500 text-white shadow-lg hover:bg-cyan-400 transition-transform transform hover:scale-110 hover:animate-pulse"
-          aria-label="Scroll to Top"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-8 right-8 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 z-40"
+          style={{
+            background: 'var(--accent)',
+            color: '#000',
+            boxShadow: '0 0 16px rgba(34,211,238,0.3)',
+          }}
+          aria-label="Scroll to top"
         >
-          <IoIosArrowRoundUp size={20}/>
+          <IoIosArrowRoundUp size={18} />
         </button>
       )}
 
-
-      <div className="footer mt-auto mx-auto w-full pb-5">
-        <p className='text-gray-400 text-center text-sm cursor-pointer hover:text-cyan-300 mb-5'>
-          © Designed by Phiwe Mhlope 2024
-        </p>
-        <p className='text-center cursor-pointer mx-auto text-xs text-gray-400 underline hover:text-cyan-300 '>
-          <a href="https://phiwem.netlify.app/" target='blank'>previous site version</a>
-        </p>
-      </div>
+      {/* Command palette */}
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
     </div>
-   
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,49 +1,57 @@
-
 import { motion } from 'framer-motion';
 import { projects } from '../projectsData';
 import ProjectCard from './ProjectCard';
 
 export default function Projects() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className='projects container mx-auto px-6 md:px-14 md:pt-16 md:mb-10 max-w-[1000px] xl:w-[75%] flex flex-col z-0 mb-12'
-      id='projects'
+    <section
+      id="projects"
+      className="py-24 px-6"
+      style={{ borderTop: '1px solid var(--border)' }}
     >
-      <div className="flex space-x-4 mb-6 md:mb-8">
-        <div className="title-wrapper flex flex-col items-center">
-          <p className="title-sub text-xs font-thin tracking-wider text-cyan-300 mr-2 mb-2">#Projects</p>
-          <h1 className="about-title ubuntu-bold text-xl md:text-3xl font-extrabold text-gray-400 relative whitespace-nowrap">
-            What I've built
-          </h1>
-        </div>
-        <span className='w-[52%] border-b border-cyan-700/30 mb-3'></span>
-      </div>
+      <div className="mx-auto max-w-4xl">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-12"
+        >
+          <p className="section-label mb-3">Projects</p>
+          <div className="flex items-end justify-between gap-4">
+            <h2
+              className="text-3xl md:text-4xl font-bold tracking-tight"
+              style={{ color: 'var(--text)', letterSpacing: '-0.02em' }}
+            >
+              Selected work
+            </h2>
+            <p className="text-sm hidden sm:block" style={{ color: 'var(--text-3)' }}>
+              {projects.length} projects
+            </p>
+          </div>
+          <p className="mt-3 text-sm max-w-lg" style={{ color: 'var(--text-3)' }}>
+            Production applications built end-to-end. Each entry links to a full case study
+            covering architecture, decisions, and outcomes.
+          </p>
+        </motion.div>
 
-      {/* 2-column grid — cards in same row share equal height automatically */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.15 }}
-            viewport={{ once: true }}
-          >
-            <ProjectCard
-              image={project.image}
-              title={project.title}
-              desc={project.description}
-              techStack={project.techStack}
-              projectLink={project.projectLink}
-              gitHubLink={project.gitHubLink}
-            />
-          </motion.div>
-        ))}
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {projects.map((project, i) => (
+            <motion.div
+              key={project.slug}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="h-full"
+            >
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </motion.div>
+    </section>
   );
 }
