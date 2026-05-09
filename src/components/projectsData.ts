@@ -1,6 +1,6 @@
 import productStorImg from './../assets/projects/productStore.png';
 // import movieImg from './../assets/projects/movieDatabaseimg.avif'
-import afriverseImg from './../assets/projects/afriverse.png';
+import afriverseImg from './../assets/projects/Afriverse.png';
 
 export interface Project {
   image: string;
