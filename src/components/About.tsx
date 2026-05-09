@@ -66,16 +66,16 @@ export default function About() {
             <p style={{ color: 'var(--text-2)', lineHeight: '1.8' }}>
               I'm{' '}
               <span style={{ color: 'var(--text)', fontWeight: 500 }}>Phiwe Mhlope</span>, a
-              Full-Stack Developer based in South Africa. I specialize in building scalable,
+              Full-Stack Developer based in Hartford, Connecticut. I specialize in building scalable,
               performant web applications across the full stack — from React frontends to Node.js
               APIs and cloud-connected data layers.
             </p>
             <p style={{ color: 'var(--text-2)', lineHeight: '1.8' }}>
-              Currently at{' '}
-              <span style={{ color: 'var(--text)', fontWeight: 500 }}>VISTECH</span>, I build
+              Formerly at{' '}
+              <span style={{ color: 'var(--text)', fontWeight: 500 }}>VISTECH</span>, I built
               custom enterprise tools using SharePoint Framework (SPFx), TypeScript, and modern
               web technologies for external clients operating within the Microsoft 365 ecosystem.
-              My day-to-day involves everything from database design and API integration to UI/UX
+              My day-to-day involved everything from database design and API integration to UI/UX
               prototyping in Figma.
             </p>
             <p style={{ color: 'var(--text-2)', lineHeight: '1.8' }}>

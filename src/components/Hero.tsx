@@ -6,10 +6,10 @@ import { HiArrowRight } from 'react-icons/hi2';
 const RESUME_URL = '/Phiwe-MhlopeDev.pdf';
 
 const stats = [
-  { value: '2+', label: 'Years experience' },
+  { value: '3+', label: 'Years experience' },
   { value: '2', label: 'Companies' },
   { value: '5+', label: 'Production apps' },
-  { value: '7+', label: 'Technologies' },
+  { value: '10+', label: 'Technologies' },
 ];
 
 function Hero() {
@@ -75,9 +75,9 @@ function Hero() {
               style={{ color: 'var(--text-3)' }}
             >
               I build production-grade web applications with a focus on performance,
-              accessibility, and developer experience. Currently at{' '}
+              accessibility, and developer experience. Formely at{' '}
               <span style={{ color: 'var(--text-2)', fontWeight: 500 }}>VISTECH</span>{' '}
-              where I develop enterprise tools on the Microsoft 365 platform.
+              where I developed enterprise tools on the Microsoft 365 platform.
             </p>
 
             {/* CTAs */}

@@ -14,7 +14,7 @@ const roles: Role[] = [
   {
     company: 'VISTECH',
     title: 'Software Developer',
-    period: 'Jun 2023 — Present',
+    period: 'Jun 2023 — Sep 2025',
     type: 'Full-time',
     description:
       'Delivering custom enterprise web applications for external clients operating within the Microsoft 365 ecosystem. Sole frontend engineer on several client engagements — responsible for requirements, architecture, implementation, and handover.',
