@@ -63,9 +63,9 @@ export default function Contact() {
               Send an email <HiArrowRight size={14} />
             </a>
 
-            <p className="text-xs" style={{ color: 'var(--text-3)', fontFamily: 'var(--mono)' }}>
+            {/* <p className="text-xs" style={{ color: 'var(--text-3)', fontFamily: 'var(--mono)' }}>
               wycliffwhite7@gmail.com
-            </p>
+            </p> */}
           </motion.div>
 
           {/* Right */}
