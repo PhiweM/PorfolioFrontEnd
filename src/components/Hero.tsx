@@ -75,9 +75,7 @@ function Hero() {
               style={{ color: 'var(--text-3)' }}
             >
               I build production-grade web applications with a focus on performance,
-              accessibility, and developer experience. Formely at{' '}
-              <span style={{ color: 'var(--text-2)', fontWeight: 500 }}>VISTECH</span>{' '}
-              where I developed enterprise tools on the Microsoft 365 platform.
+              accessibility, and developer experience. 
             </p>
 
             {/* CTAs */}
