@@ -100,7 +100,7 @@ export default function About() {
             <p style={{ color: 'var(--text-2)', lineHeight: '1.8' }}>
               I'm{' '}
               <span style={{ color: 'var(--text)', fontWeight: 500 }}>Phiwe Mhlope</span>, a
-              Full-Stack Developer based in Hartford, Connecticut. I specialize in building scalable,
+              Full-Stack Developer based in Connecticut. I specialize in building scalable,
               performant web applications across the full stack — from React frontends to Node.js
               APIs and cloud-connected data layers.
             </p>
