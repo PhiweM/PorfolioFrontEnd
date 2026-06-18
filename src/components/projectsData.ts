@@ -1,5 +1,6 @@
 import productStoreImg from './../assets/projects/productStore.png';
 import afriverseImg from './../assets/projects/Afriverse.png';
+import habitTrackerImg from './../assets/projects/habitTracker.png';
 
 export interface KeyFeature {
   title: string;
@@ -123,6 +124,84 @@ export const projects: Project[] = [
     'Server-side rendering or static generation for core pages to improve SEO and cold load performance',
   ],
   },
+
+  {
+    slug: 'daily-habit-tracker',
+    image: habitTrackerImg,
+    title: 'Daily Habit Tracker',
+    tagline: 'A cross-device habit tracker with real-time sync — inspired by the simplicity of a paper monthly grid.',
+    description:
+      'A personal habit tracking app built with React, Vite, and Firebase. Features a paper-grid–inspired monthly view, real-time cross-device sync via Firestore, Google sign-in, drag-and-drop habit reordering, daily journal entries, analytics with streak tracking, and a daily Christian quote widget.',
+    status: 'production',
+    year: '2025',
+    role: 'Front-End Developer',
+    techStack: ['React', 'Vite', 'Firebase', 'Firestore', 'Tailwind CSS', 'Google Auth'],
+    projectLink: 'https://daily-habit-tracker-flame.vercel.app/',
+    gitHubLink: 'https://github.com/PhiweM/DailyHabitTracker',
+    metrics: [
+      { label: 'Views', value: 'Day / Week / Month' },
+      { label: 'Sync', value: 'Real-time Firestore' },
+      { label: 'Auth', value: 'Google Sign-In' },
+      { label: 'Deployment', value: 'Vercel' },
+    ],
+    overview:
+      'Daily Habit Tracker is a personal productivity app modeled on the feel of a paper monthly grid — clean, minimal, and focused. Users sign in with Google and their data syncs in real time across all their devices via Firebase Firestore. The app offers four views: a daily check-in with journal notes, a weekly overview, a full monthly grid with completion rates, and an analytics dashboard with streak tracking and a 365-day heatmap.',
+    problem:
+      'Most habit tracking apps are either too complex or too gamified — filling the screen with badges, streaks, and notifications that distract from the actual goal of building habits. The goal here was to build something closer to a paper grid: simple enough that checking off a habit takes one tap, with just enough data to stay motivated. Cross-device sync was a core requirement — the app needed to feel seamless whether opened on a phone on the go or a desktop at home.',
+    architecture:
+      'The frontend is a Vite + React 18 SPA with a tab-based navigation pattern and no external routing library. All application state flows through a single custom hook (useStore) that wraps Firebase Firestore — using onSnapshot for real-time sync, setDoc with merge for habit array changes, and updateDoc with dot-notation keys for individual completion toggles. Note fields are debounced 800ms before writing to avoid excessive Firestore writes. Firebase Auth handles Google sign-in with onAuthStateChanged managing the session lifecycle. All Firebase config values are read from Vite environment variables (import.meta.env.VITE_*) and set as Vercel environment variables in production — no secrets in source code.',
+    keyFeatures: [
+      {
+        title: 'Real-Time Cross-Device Sync',
+        description:
+          'All habit data — completions, notes, habit order — is stored in Firestore and synced live via onSnapshot listeners. Open the app on two devices simultaneously and changes appear on both within milliseconds.',
+      },
+      {
+        title: 'Monthly Grid View',
+        description:
+          'A fixed-layout table displays every day of the month as columns and habits as rows, matching the layout of a paper habit grid. Cells show a ✓ mark on completion, weekend shading, today highlighting, and a monthly completion rate per habit.',
+      },
+      {
+        title: 'Day View with Journal',
+        description:
+          'Each day has a check-in view with a progress bar, per-habit note fields, and a daily free-form journal textarea. Notes are saved automatically with an 800ms debounce to avoid unnecessary Firestore writes.',
+      },
+      {
+        title: 'Drag-and-Drop Habit Reordering',
+        description:
+          'Habits can be reordered via drag-and-drop using the HTML5 Drag API. The row renderer is a plain function (not a nested React component) to prevent unmounting during drag, which would reset drag state mid-gesture.',
+      },
+      {
+        title: 'Analytics Dashboard',
+        description:
+          'An analytics tab shows a 365-day completion heatmap, current and best streaks, 7/30/90-day rolling averages, and per-habit completion rates — giving a long-range view of habit consistency.',
+      },
+      {
+        title: 'Google Auth & Firestore Security',
+        description:
+          'Sign-in is handled via signInWithPopup with Google. Firestore security rules restrict all reads and writes to the authenticated user\'s own document, enforced at the database layer: allow read, write: if request.auth.uid == userId.',
+      },
+    ],
+    challenges:
+      'The trickiest issue was keeping drag-and-drop stable while React re-renders the habits list. Defining the row renderer as a plain function inside the parent component (rather than a separate React component) was critical — a nested component would be treated as a new type on every parent render, causing React to unmount and remount rows during drag, which interrupted the browser\'s drag session. A secondary challenge was moving Firebase config out of source code after GitHub\'s secret scanner flagged a committed API key — solved by migrating all values to Vite environment variables and Vercel\'s environment variable dashboard.',
+    technicalHighlights: [
+      'Firestore onSnapshot listener for real-time cross-device habit sync',
+      'Dot-notation updateDoc writes for individual completion toggles without overwriting other data',
+      '800ms debounced note syncing to minimize Firestore write operations',
+      'HTML5 Drag API for habit reordering with plain function renderer to prevent remount during drag',
+      'Firebase Auth with Google sign-in and onAuthStateChanged session management',
+      'All Firebase config injected via Vite env vars — no secrets in source code',
+      'Fixed-layout table with minWidth + overflow-x for mobile/desktop scrolling',
+    ],
+    futureImprovements: [
+      'Habit scheduling — mark habits as weekday-only or specific days of the week',
+      'Push notifications or reminders via Firebase Cloud Messaging',
+      'Shareable progress cards — export a month summary as an image',
+      'Habit categories and grouping for users tracking many habits',
+      'Offline support using Firestore\'s built-in offline persistence',
+    ],
+  },
+  
   {
     slug: 'product-store',
     image: productStoreImg,
