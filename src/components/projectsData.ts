@@ -1,6 +1,7 @@
 import productStoreImg from './../assets/projects/productStore.png';
 import afriverseImg from './../assets/projects/Afriverse.png';
 import habitTrackerImg from './../assets/projects/habitTracker.png';
+import bookTrackerImg from './../assets/projects/booktracker.png';
 
 export interface KeyFeature {
   title: string;
@@ -61,47 +62,47 @@ export const projects: Project[] = [
     architecture:
       'The frontend is a Vite + React 18 SPA with React Router v7 for client-side navigation and lazy-loaded routes. A custom useQuery hook provides an in-memory pub/sub data cache with key-based invalidation — avoiding redundant Supabase calls across page navigations. Supabase serves as the entire backend: PostgreSQL with row-level security for access control, Supabase Auth for session management, and the PostgREST API for all database queries. A service layer maps snake_case DB rows to camelCase app types, keeping the data model clean across the stack. Four external APIs — Wikipedia, OpenLibrary, Google Books, and YouTube — are integrated client-side for live data enrichment. Transactional email (signup confirmation, password reset) is handled via Resend SMTP with branded HTML templates configured in Supabase Auth. The app is deployed on Vercel with automatic CI/CD from GitHub.',
     keyFeatures: [
-    {
-      title: 'Multi-Source Data Aggregation',
-      description:
-        'Author profiles are enriched in real time from the Wikipedia REST API — pulling bios, photos, and image credits. Book covers use a 4-tier cascade: static DB value → OpenLibrary ISBN lookup (with 1×1 GIF detection) → Google Books fallback → deterministic CSS-generated cover. Interview thumbnails are pulled directly from YouTube. No manual asset management required.',
-    },
-    {
-      title: 'Community Contribution & Moderation System',
-      description:
-        'Any registered user can submit new authors, books, essays, interviews, quotes, or corrections through a multi-entry batch form. All submissions enter a moderation queue. Admins review, approve, or reject from a dedicated interface — with quote approvals automatically inserting enriched records into the quotes table, including Wikipedia-sourced author images.',
-    },
-    {
-      title: 'Author Profile Claiming & Verification',
-      description:
-        'Authors can search for their own profile and submit a claim through a structured verification flow. Once approved by an admin, the profile is marked verified with a visible badge — giving real authors ownership of their presence on the platform.',
-    },
-    {
-      title: 'Multi-Dimensional Author Discovery',
-      description:
-        'Authors are filterable across six dimensions simultaneously: geographic region, country, literary genre, language, decade, and curated preset tabs (Nobel Laureates, Emerging Voices, Verified Authors). All filter state is reflected in URL params, making filtered views shareable and bookmarkable.',
-    },
-    {
-      title: 'Literary Awards Tracking',
-      description:
-        'The platform indexes major African literary prizes with full winner records, shortlists, and notable historical winners — giving researchers a structured view of the literary canon and prize history that does not exist anywhere else in one place.',
-    },
-    {
-      title: 'Row-Level Security & Role System',
-      description:
-        'All data access is enforced at the PostgreSQL layer via Supabase RLS policies — not just the UI. Three roles (reader, contributor, admin) govern what each user can read, write, and moderate. A SECURITY DEFINER function prevents RLS recursion on the profiles table itself.',
-    },
-    {
-      title: 'SEO & Structured Data',
-      description:
-        'Every public page includes dynamic meta tags managed via useEffect DOM manipulation. Author profile pages emit JSON-LD Person and Book schemas for Google rich results — making the archive genuinely indexable and useful to search engines, not just human visitors.',
-    },
-    {
-      title: 'Branded Transactional Email',
-      description:
-        'Signup confirmation and password reset emails are sent via Resend SMTP with fully branded HTML templates — inline-styled, gold CTA buttons, AfriVerse wordmark — replacing Supabase\'s generic defaults with a production-quality email experience.',
-    },
-  ],
+      {
+        title: 'Multi-Source Data Aggregation',
+        description:
+          'Author profiles are enriched in real time from the Wikipedia REST API — pulling bios, photos, and image credits. Book covers use a 4-tier cascade: static DB value → OpenLibrary ISBN lookup (with 1×1 GIF detection) → Google Books fallback → deterministic CSS-generated cover. Interview thumbnails are pulled directly from YouTube. No manual asset management required.',
+      },
+      {
+        title: 'Community Contribution & Moderation System',
+        description:
+          'Any registered user can submit new authors, books, essays, interviews, quotes, or corrections through a multi-entry batch form. All submissions enter a moderation queue. Admins review, approve, or reject from a dedicated interface — with quote approvals automatically inserting enriched records into the quotes table, including Wikipedia-sourced author images.',
+      },
+      {
+        title: 'Author Profile Claiming & Verification',
+        description:
+          'Authors can search for their own profile and submit a claim through a structured verification flow. Once approved by an admin, the profile is marked verified with a visible badge — giving real authors ownership of their presence on the platform.',
+      },
+      {
+        title: 'Multi-Dimensional Author Discovery',
+        description:
+          'Authors are filterable across six dimensions simultaneously: geographic region, country, literary genre, language, decade, and curated preset tabs (Nobel Laureates, Emerging Voices, Verified Authors). All filter state is reflected in URL params, making filtered views shareable and bookmarkable.',
+      },
+      {
+        title: 'Literary Awards Tracking',
+        description:
+          'The platform indexes major African literary prizes with full winner records, shortlists, and notable historical winners — giving researchers a structured view of the literary canon and prize history that does not exist anywhere else in one place.',
+      },
+      {
+        title: 'Row-Level Security & Role System',
+        description:
+          'All data access is enforced at the PostgreSQL layer via Supabase RLS policies — not just the UI. Three roles (reader, contributor, admin) govern what each user can read, write, and moderate. A SECURITY DEFINER function prevents RLS recursion on the profiles table itself.',
+      },
+      {
+        title: 'SEO & Structured Data',
+        description:
+          'Every public page includes dynamic meta tags managed via useEffect DOM manipulation. Author profile pages emit JSON-LD Person and Book schemas for Google rich results — making the archive genuinely indexable and useful to search engines, not just human visitors.',
+      },
+      {
+        title: 'Branded Transactional Email',
+        description:
+          'Signup confirmation and password reset emails are sent via Resend SMTP with fully branded HTML templates — inline-styled, gold CTA buttons, AfriVerse wordmark — replacing Supabase\'s generic defaults with a production-quality email experience.',
+      },
+    ],
     challenges:
       'The trickiest part was designing the PostgreSQL schema for many-to-many relationships between authors, books, genres, regions, and languages — while ensuring that all RLS policies were additive rather than conflicting. Another challenge was Wikipedia\'s API returning inconsistent data structures depending on the author; the enrichment layer required defensive parsing and graceful fallbacks. Supabase Auth session hydration on page refresh also required careful handling with React Router to avoid flashing unauthenticated states.',
     technicalHighlights: [
@@ -114,15 +115,92 @@ export const projects: Project[] = [
       'Mobile-first responsive layout throughout',
     ],
     futureImprovements: [
-    'Full-text search across author bios and book descriptions using PostgreSQL tsvector',
-    'Server-side cursor pagination replacing client-side visibleCount for scale',
-    'Public reading list sharing with unique shareable URLs',
-    'Contributor leaderboard recognizing top community submitters',
-    'Structured public API for consumption by researchers and educators',
-    'Auto-badge awarding logic — tables and schema already in place',
-    'Email digest for new additions in followed genres or regions',
-    'Server-side rendering or static generation for core pages to improve SEO and cold load performance',
-  ],
+      'Full-text search across author bios and book descriptions using PostgreSQL tsvector',
+      'Server-side cursor pagination replacing client-side visibleCount for scale',
+      'Public reading list sharing with unique shareable URLs',
+      'Contributor leaderboard recognizing top community submitters',
+      'Structured public API for consumption by researchers and educators',
+      'Auto-badge awarding logic — tables and schema already in place',
+      'Email digest for new additions in followed genres or regions',
+      'Server-side rendering or static generation for core pages to improve SEO and cold load performance',
+    ],
+  },
+  
+  {
+    slug: 'book-tracker',
+    image: bookTrackerImg,
+    title: 'BookTracker',
+    tagline: 'A personal reading library with auth, rich metadata, and visual reading insights.',
+    description:
+      'A full-stack book tracking app built with Next.js 15, Prisma, and SQLite. Features credential-based auth, a sortable/filterable book table, per-book metadata (genre, rating, pages, format, tags), and a collapsible analytics panel with books-per-year, top genres, and most-read authors charts.',
+    status: 'in-development',
+    year: '2025',
+    role: 'Full-Stack Developer',
+    techStack: ['Next.js', 'React 19', 'TypeScript', 'Prisma', 'SQLite', 'Tailwind CSS', 'Zustand', 'TanStack Table'],
+    projectLink: '',
+    gitHubLink: 'https://github.com/PhiweM/BookTracker',
+    metrics: [
+      { label: 'Stack', value: 'Next.js full-stack' },
+      { label: 'Database', value: 'SQLite via Prisma' },
+      { label: 'Auth', value: 'Credential-based' },
+      { label: 'UI', value: 'TanStack Table' },
+    ],
+    overview:
+      'BookTracker is a personal reading library app that lets users catalogue every book they have read, are reading, want to read, or have on their wishlist. Each book stores rich metadata — genre, rating, pages, publish year, ISBN, read format, notes, and tags. A stats bar shows live counts by status, unique authors, total pages read, and average rating. A collapsible Reading Insights panel renders bar charts for books read per year, top genres, and most-read authors — giving a long-range view of reading habits at a glance.',
+    problem:
+      'Goodreads and similar apps are cluttered with social features, ads, and algorithmic recommendations that bury the simple act of tracking what you have read. The goal was a clean, fast, personal library — no social layer, no noise — with just enough analytics to stay motivated and reflect on reading patterns over time.',
+    architecture:
+      'The frontend and backend are colocated in a Next.js 15 App Router project. API routes under /api/books and /api/auth handle all data mutations server-side, authenticated via an HTTP-only session cookie set on login. Prisma with the better-sqlite3 adapter manages the local SQLite database, keeping the stack dependency-free and instantly portable. Client state is minimal — books are fetched once on mount and updated optimistically on add, edit, and delete. The book table is powered by TanStack Table for column sorting and filtering. Global UI state (dialogs, toasts) is handled with Zustand and Radix UI primitives.',
+    keyFeatures: [
+      {
+        title: 'Rich Book Metadata',
+        description:
+          'Each book record supports title, author, ISBN, cover URL, publish year, page count, genre, publisher, language, read status, year read, star rating, notes, tags, category, read format (physical/ebook/audio), and reread count — covering the full lifecycle of a book in a personal library.',
+      },
+      {
+        title: 'Sortable & Filterable Book Table',
+        description:
+          'The library view is a TanStack Table with column-level sorting and filtering. Users can sort by title, author, rating, or year read, and filter to any subset of their library in real time.',
+      },
+      {
+        title: 'Reading Stats Bar',
+        description:
+          'A persistent stats bar above the table shows live counts for Read, Reading, Want to Read, Wishlist, total unique Authors, total Pages Read (across finished books), and average star rating — updated instantly on any change.',
+      },
+      {
+        title: 'Reading Insights Panel',
+        description:
+          'A collapsible analytics section renders three inline bar charts: books read per year (up to 8 years of history), top genres by book count, and most-read authors — with a year-over-year trend percentage for the current year.',
+      },
+      {
+        title: 'Credential Auth with HTTP-Only Cookies',
+        description:
+          'Register and login flows hash passwords server-side and issue an HTTP-only session cookie. A Next.js middleware layer protects all app routes, redirecting unauthenticated requests to /login.',
+      },
+      {
+        title: 'Inline Add & Edit Dialogs',
+        description:
+          'Books are added via an AddMenu that opens a full metadata form in a Radix UI Dialog. Any book can be edited in place through an EditBookDialog — changes are PATCHed to the API and reflected immediately in the table without a page reload.',
+      },
+    ],
+    challenges:
+      'The main challenge was keeping Prisma working with the better-sqlite3 driver adapter in a Next.js App Router environment, where the Prisma client must be instantiated as a singleton to avoid exhausting SQLite connections across hot-reloads in development. Auth also required careful middleware ordering to ensure the session cookie check runs before any RSC data fetching, preventing unauthenticated flashes.',
+    technicalHighlights: [
+      'Next.js 15 App Router with colocated API routes for books and auth',
+      'Prisma ORM with better-sqlite3 driver adapter — no external database required',
+      'HTTP-only session cookie auth with middleware-level route protection',
+      'TanStack Table for client-side column sorting and filtering',
+      'Zustand for global dialog and toast state',
+      'Radix UI Dialog, DropdownMenu, Select, and Popover for accessible UI primitives',
+      'Inline bar charts rendered with pure CSS flex/width calculations — no chart library',
+    ],
+    futureImprovements: [
+      'Open Library / Google Books API integration to auto-fill metadata from ISBN',
+      'Cover image display in the table and on a book detail page',
+      'Reading goal — set a yearly book target and track progress',
+      'CSV import/export for migrating data from Goodreads',
+      'Deploy to Vercel with a persistent database (Turso or Neon)',
+    ],
   },
 
   {
@@ -201,7 +279,7 @@ export const projects: Project[] = [
       'Offline support using Firestore\'s built-in offline persistence',
     ],
   },
-  
+
   {
     slug: 'product-store',
     image: productStoreImg,
