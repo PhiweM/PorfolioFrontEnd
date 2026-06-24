@@ -137,8 +137,8 @@ export const projects: Project[] = [
     year: '2025',
     role: 'Full-Stack Developer',
     techStack: ['Next.js', 'React 19', 'TypeScript', 'Prisma', 'SQLite', 'Tailwind CSS', 'Zustand', 'TanStack Table'],
-    projectLink: '',
-    gitHubLink: 'https://github.com/PhiweM/BookTracker',
+    projectLink: 'https://book-author-tracker.vercel.app/',
+    gitHubLink: 'https://github.com/PhiweM/book-author-tracker',
     metrics: [
       { label: 'Stack', value: 'Next.js full-stack' },
       { label: 'Database', value: 'SQLite via Prisma' },
